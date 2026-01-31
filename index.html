@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Обратный отсчёт до 21 мая</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 550px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            letter-spacing: 1px;
+        }
+        .timer {
+            font-size: 3.5em;
+            font-weight: bold;
+            margin: 30px 0;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        }
+        .labels {
+            display: flex;
+            justify-content: space-around;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+        .labels span {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 8px;
+            min-width: 80px;
+        }
+        @media (max-width: 600px) {
+            .timer { font-size: 2.5em; }
+            h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Обратный отсчёт до 21 мая 2026</h1>
+        <div class="timer" id="timer">00:00:00:00</div>
+        <div class="labels">
+            <span>Дни</span>
+            <span>Часы</span>
+            <span>Минуты</span>
+            <span>Секунды</span>
+        </div>
+    </div>
+
+    <script>
+        function updateTimer() {
+            // Устанавливаем целевую дату: 21 мая 2026, 00:00:00
+            const targetDate = new Date('2026-05-21T00:00:00');
+            const now = new Date();
+            const difference = targetDate - now;
+
+            // Если дата наступила или прошла
+            if (difference <= 0) {
+                document.getElementById('timer').textContent = 'Дата наступила!';
+                return;
+            }
+
+            // Вычисляем оставшиеся дни, часы, минуты и секунды
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            // Обновляем отображение таймера
+            document.getElementById('timer').textContent = 
+                `${days} : ${hours} : ${minutes} : ${seconds}`;
+        }
+
+        // Запускаем обновление таймера каждую секунду
+        setInterval(updateTimer, 1000);
+        // Первоначальное обновление сразу после загрузки страницы
+        updateTimer();
+    </script>
+</body>
+</html>
